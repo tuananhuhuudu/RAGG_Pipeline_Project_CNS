@@ -1,0 +1,16 @@
+langchain-openai
+langchain-huggingface
+python-dotenv 
+langchain_community
+langchain_core 
+streamlit 
+ipykernel 
+pypdf 
+bs4 
+arxiv
+langchain_openai
+faiss-cpu
+sentence_transformers 
+pandas 
+openai 
+langchain_groq
