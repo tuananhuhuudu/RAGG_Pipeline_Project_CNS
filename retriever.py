@@ -57,13 +57,13 @@ class Retriever :
         self.vectorstore = vectorstore 
         self.retriever = VectorStoreRetriever(vectorstore=vectorstore)
         
-## Test        
-if __name__ == "__main__":
-    a = Retriever(name = "CCCD")
-    query = "Công dân đến cơ quan nào để cấp lại CCCD"
+# ## Test        
+# if __name__ == "__main__":
+#     a = Retriever(name = "CCCD")
+#     query = "Công dân đến cơ quan nào để cấp lại CCCD"
     
-    answer = a.retriever.get_relevant_documents(query= query)
-    for i , doc in enumerate(answer):
-        print(f"--- Document {i} ---")
-        print(doc.page_content)
-        print(doc.metadata)
+#     answer = a.retriever.get_relevant_documents(query= query)
+#     for i , doc in enumerate(answer):
+#         print(f"--- Document {i} ---")
+#         print(doc.page_content)
+#         print(doc.metadata)
