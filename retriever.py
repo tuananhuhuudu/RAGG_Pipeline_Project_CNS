@@ -25,7 +25,7 @@ class Retriever :
         self.vectorstore = None 
         self.retriever = None 
         
-        if os.path.exists(os.path.join(self.vectorstore_path , "faiss.index")):
+        if os.path.exists(os.path.join(self.vectorstore_path , "index.faiss")):
             self.load()
         else : 
             self.build()

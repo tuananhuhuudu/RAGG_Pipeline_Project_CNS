@@ -26,8 +26,6 @@ def prompt_template(task):
         prompt_system = (
             """
             Bạn  là 1 trợ lý ảo . Bạn có nhiệm vụ là cung cấp và trả lời câu hỏi người dùng ,
-            có thể tham chiếu đến các nội dung trước đó và trả lời 1 cách chính xác nhất cho 
-            câu hỏi mới 
             Bối cảnh:
             - Bạn đang hỗ trợ mọi người trong các thủ tục hành chính
             - Thông tin bạn cung cấp phải chính xác và dựa trên dữ liệu đã được xác nhận.
@@ -36,14 +34,13 @@ def prompt_template(task):
             Nhớ rằng : 
             - Hãy dựa trên thông tin được cung cấp để trả lời câu hỏi 
             - Nếu không thể trả lời câu hỏi dựa trên thông tin được cung cấp hoặc không thấy thông tin ,
-            bạn hãy trả lời rằng : hmm...Hiện nay tôi không có thông tin và đủ căn cứ để trả lời câu hỏi trên!
+            bạn hãy trả lời rằng : hmm...Hiện nay tôi không có thông tin và đủ căn cứ để trả lời câu hỏi trên! , hoặc là bạn có thể vui lòng cung cấp câu hỏi rõ ràng hơn 
             """
         )
         prompt_template = ChatPromptTemplate.from_messages(
             [
                 ("system", prompt_system),
                 ("system", "Thông tin cung cấp:\n{context}"),
-                MessagesPlaceholder("chat_history"),
                 ("human", "{input}")
             ]
         )
@@ -52,7 +49,7 @@ def prompt_template(task):
             """
             Bạn là một trợ lý ảo thông minh. Nhiệm vụ của bạn là chọn function phù hợp nhất để xử lý câu hỏi của người dùng.
             Dưới đây là danh sách các function có sẵn và mô tả của chúng:
-            {functions_description}
+            {tool_description}
 
             Câu hỏi:
             {question}
@@ -63,61 +60,27 @@ def prompt_template(task):
         )
     return prompt_template
 
-def chat_llm_with_ragg(messages: str, task: str, params={}):
-    """
-    messages: session_id (str) để lưu lịch sử hội thoại
-    task: tên tác vụ
-    params: dict chứa context, input,...
-    """
+def chat_llm_with_ragg(task: str, params={}):
     prompt = prompt_template(task)
-    chain = prompt | llm
+    formatted_messages = prompt.format_messages(**params)
 
-    runnable = RunnableWithMessageHistory(
-        chain,
-        lambda session_id: InMemoryChatMessageHistory(),
-        input_messages_key="input",
-        history_messages_key="chat_history"
-    )
-
-    # Gọi model
-    response = runnable.invoke(
-        params,
-        config={"configurable": {"session_id": messages}}
-    )
+    # Gọi model qua invoke()
+    response = llm.invoke(formatted_messages)
 
     return response.content
 
+# if __name__ == "__main__":
+#     response = chat_llm_with_ragg(
+#         task="search_information",
+#         params={
+#             "context": """
+#                 Theo Điều 23 Luật Cư trú 2020, hồ sơ đăng ký tạm trú gồm:
+#                 - Tờ khai
+#                 - Căn cước công dân (CCCD)
+#                 - Giấy tờ chứng minh chỗ ở hợp pháp
+#             """,
+#             "input": "Tôi cần làm hồ sơ đăng ký tạm trú"
+#         }
+#     )
 
-
-
-
-
-if __name__ == "__main__":
-    session_id = "user_001"
-
-    result1 = chat_llm_with_ragg(
-        messages=session_id,
-        task="search_information",
-        params={
-            "context": """
-                Theo Điều 23 Luật Cư trú 2020, hồ sơ đăng ký tạm trú gồm:
-                - Tờ khai
-                - CCCD
-                - Giấy tờ chứng minh chỗ ở hợp pháp
-            """,
-            "input": "Tôi cần làm hồ sơ đăng ký tạm trú"
-        }
-    )
-    print("Assistant:", result1)
-
-    result2 = chat_llm_with_ragg(
-        messages=session_id,
-        task="search_information",
-        params={
-            "context": """
-                Thời hạn giải quyết hồ sơ đăng ký tạm trú là 3 ngày làm việc.
-            """,
-            "input": "Thời hạn giải quyết hồ sơ là bao lâu?"
-        }
-    )
-    print("Assistant:", result2)
+#     print("Assistant:", response)
