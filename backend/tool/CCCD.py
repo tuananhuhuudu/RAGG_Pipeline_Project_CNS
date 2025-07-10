@@ -2,8 +2,8 @@ import os
 import sys
 # sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), ".." , "..")))
 from backend.ragg import RagMini
-from retriever import Retriever
-from llm.models import chat_llm_with_ragg 
+from backend.retriever.retriever import Retriever
+from backend.llm.models import chat_llm_with_ragg
 
 name = "CCCD"
 
