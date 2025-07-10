@@ -1,30 +1,20 @@
 import sys
 import os
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-
-from dotenv import load_dotenv
+# sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_groq import ChatGroq
 
-from tool import CCCD
-from llm.models import chat_llm_with_ragg
+from backend.tool import CCCD
 
-# Load biến môi trường
-load_dotenv()
+from backend.llm.models import chat_llm_with_ragg
 
-llm = ChatGroq(
-    groq_api_key=os.getenv("GROQ_API_KEY"),
-    model_name="Gemma2-9b-It"
+from backend.config import (
+    llm
 )
-
 tools = {
-    "CCCD": CCCD.CCCD_RAGG
+    "CCCD": CCCD.CCCD_RAGG  #(Dùng để test Class toolselector tại đây bạn có thể xóa đi nếu không cần)
 }
-
-# tool_description = "\n".join(
-#     [f"{name}: {obj.description}" for name, obj in tools.items()]
-# )
 
 class ToolSelector:
     def __init__(self, llm, tools):

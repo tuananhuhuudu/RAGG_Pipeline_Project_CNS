@@ -1,8 +1,7 @@
 import os 
 import sys
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-
-from ragg import RagMini
+# sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), ".." , "..")))
+from backend.ragg import RagMini
 from retriever import Retriever
 from llm.models import chat_llm_with_ragg 
 
@@ -31,8 +30,8 @@ class CCCD(RagMini):
 
 CCCD_RAGG = CCCD()
 
-# if __name__ == "__main__":
-#     question = "CCCD là gì và dùng để làm gì?"
-#     result = CCCD_RAGG.invoke(question)
-#     print("Câu hỏi:", question)
-#     print("Trợ lý trả lời:", result)
+if __name__ == "__main__":
+    question = "CCCD là gì và dùng để làm gì?"
+    result = CCCD_RAGG.invoke(question)
+    print("Câu hỏi:", question)
+    print("Trợ lý trả lời:", result)

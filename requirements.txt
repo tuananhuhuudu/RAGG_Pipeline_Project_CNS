@@ -14,3 +14,5 @@ sentence_transformers
 pandas 
 openai 
 langchain_groq
+fastapi
+uvicorn 

@@ -1,24 +1,15 @@
 import os
-from dotenv import load_dotenv
 
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_core.chat_history import InMemoryChatMessageHistory
 from langchain_groq import ChatGroq
-from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
-from langchain_core.runnables.history import RunnableWithMessageHistory
+from langchain_core.prompts import ChatPromptTemplate
 
-# Load biến môi trường
-load_dotenv()
-
-# Khởi tạo Embeddings
-os.environ["HF_TOKEN"] = os.getenv("HF_TOKEN")
-embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
-
-# Khởi tạo LLM
-llm = ChatGroq(
-    groq_api_key=os.getenv("GROQ_API_KEY"),
-    model_name="Gemma2-9b-It"
+from backend.config import (
+    llm , 
+    embeddings
 )
+
 
 # Prompt template của bạn giữ nguyên
 def prompt_template(task):

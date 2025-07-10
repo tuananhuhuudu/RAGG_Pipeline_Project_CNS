@@ -1,19 +1,14 @@
-from utils.tool_functions import ToolSelector
 import os
-from dotenv import load_dotenv
-from langchain_core.prompts import ChatPromptTemplate
-from langchain_groq import ChatGroq
 
-from tool import CCCD
-from llm.models import chat_llm_with_ragg
+from backend.orchestrator.tool_selector import ToolSelector
+from backend.tool import CCCD
 
-# Load biến môi trường
-load_dotenv()
-
-llm = ChatGroq(
-    groq_api_key=os.getenv("GROQ_API_KEY"),
-    model_name="Gemma2-9b-It"
+from backend.config import (
+    llm
 )
+from backend.llm.models import chat_llm_with_ragg
+
+from langchain_core.prompts import ChatPromptTemplate
 
 tools = {
     "CCCD": CCCD.CCCD_RAGG

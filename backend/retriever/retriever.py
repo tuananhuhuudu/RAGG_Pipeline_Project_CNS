@@ -6,20 +6,17 @@ from langchain_community.docstore.in_memory import InMemoryDocstore
 from langchain_core.vectorstores import VectorStoreRetriever 
 from langchain_huggingface import HuggingFaceEmbeddings
 
-from utils import (
-    data_loader , 
-    paths
+from backend.config import (
+    embeddings , 
+    VECTORSTORE_PATH , 
+    DATA_PATH
 )
-
-from dotenv import load_dotenv 
-load_dotenv()
-os.environ["HF_TOKEN"] = os.getenv("HF_TOKEN")
-embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+from backend.data_loader import data_loader
 
 class Retriever : 
     def __init__(self , name , data_level = "folder"):
-        self.vectorstore_path = paths.VECTORSTORE_PATH[name]
-        self.data_path = paths.DATA_PATH[name]
+        self.vectorstore_path = VECTORSTORE_PATH[name]
+        self.data_path = DATA_PATH[name]
         self.data_level = data_level 
         
         self.vectorstore = None 
@@ -57,13 +54,13 @@ class Retriever :
         self.vectorstore = vectorstore 
         self.retriever = VectorStoreRetriever(vectorstore=vectorstore)
         
-# ## Test        
-# if __name__ == "__main__":
-#     a = Retriever(name = "CCCD")
-#     query = "Công dân đến cơ quan nào để cấp lại CCCD"
+## Test        
+if __name__ == "__main__":
+    a = Retriever(name = "CCCD")
+    query = "Công dân đến cơ quan nào để cấp lại CCCD"
     
-#     answer = a.retriever.get_relevant_documents(query= query)
-#     for i , doc in enumerate(answer):
-#         print(f"--- Document {i} ---")
-#         print(doc.page_content)
-#         print(doc.metadata)
+    answer = a.retriever.get_relevant_documents(query= query)
+    for i , doc in enumerate(answer):
+        print(f"--- Document {i} ---")
+        print(doc.page_content)
+        print(doc.metadata)
