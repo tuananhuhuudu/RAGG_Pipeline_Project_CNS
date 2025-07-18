@@ -1,0 +1,144 @@
+/* Reset */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #fff;
+  color: #222;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.container {
+  width: 95%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* Header */
+.header {
+  border-bottom: 1px solid #ddd;
+  background-color: #fff;
+  padding: 12px 0;
+}
+
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  width: 60px;
+  margin-right: 12px;
+}
+
+.title-group h1 {
+  margin: 0;
+  font-size: 20px;
+  color: #800000;
+  font-weight: bold;
+}
+
+.title-group p {
+  margin: 2px 0 0;
+  font-size: 13px;
+  color: #6c4b4b;
+}
+
+.header-right button {
+  margin-left: 10px;
+  padding: 6px 16px;
+  border: 1px solid #b3582b;
+  background-color: #fff;
+  color: #b3582b;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.header-right button:hover {
+  background-color: #f3efed;
+}
+
+/* Navigation */
+.nav {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ccc;
+  background-color: #f6f6f6;
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  padding: 10px 0;
+  font-size: 15px;
+}
+
+.nav-inner a {
+  color: #333;
+  text-decoration: none;
+}
+
+.nav-inner .active {
+  font-weight: bold;
+  color: #212121;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #666;
+}
+
+.breadcrumb a {
+  color: #333;
+  text-decoration: none;
+}
+
+/* Main content */
+.content {
+  padding: 25px 0;
+}
+
+.main-title {
+  font-size: 22px;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.link-detail {
+  display: inline-block;
+  font-size: 14px;
+  color: #c25a00;
+  text-decoration: none;
+  margin-bottom: 16px;
+}
+
+.link-detail:hover {
+  text-decoration: underline;
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 20px 0;
+}
+
+/* Steps section */
+.steps h3 {
+  font-size: 18px;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.steps p {
+  margin: 6px 0;
+}
